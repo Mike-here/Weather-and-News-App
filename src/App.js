@@ -3,7 +3,8 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import { motion } from 'framer-motion';
 import WeatherCard from './components/WeatherCard';
 import SearchBar from './components/SearchBar';
-import { fetchWeatherData } from './utils/api';
+import ForecastChart from './components/ForecastChart';
+import { fetchWeatherData, fetchForecastData } from './utils/api';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +22,12 @@ function WeatherApp() {
     queryKey: ['weather', city],
     queryFn: () => fetchWeatherData(city),
     enabled: !!city,
+  });
+
+  const { data: forecastData } = useQuery({
+    queryKey: ['forecast', weatherData?.coord?.lat, weatherData?.coord?.lon],
+    queryFn: () => fetchForecastData(weatherData.coord.lat, weatherData.coord.lon),
+    enabled: !!weatherData?.coord,
   });
 
   const handleSearch = (searchCity) => {
@@ -50,6 +57,7 @@ function WeatherApp() {
       )}
       
       <WeatherCard weatherData={weatherData} />
+      <ForecastChart forecastData={forecastData} />
     </div>
   );
 }
