@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.css": "/Weather-and-News-App/static/css/main.7900451b.css",
+    "main.js": "/Weather-and-News-App/static/js/main.4818f4f7.js",
+    "index.html": "/Weather-and-News-App/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.7900451b.css",
+    "static/js/main.4818f4f7.js"
+  ]
+}
