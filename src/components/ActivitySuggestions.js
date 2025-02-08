@@ -50,11 +50,35 @@ const getActivitiesByWeather = (weatherData) => {
   const weatherId = weatherData.weather[0].id;
   const windSpeed = weatherData.wind.speed;
 
-  if (weatherId >= 600 && weatherId < 700) return activities.snow;
-  if (weatherId >= 200 && weatherId < 600) return activities.rain;
-  if (weatherId === 800 && temp > 20) return activities.clear;
-  if (windSpeed > 5) return activities.windy;
-  return activities.clouds;
+  // Weather condition ranges
+  const isSnow = weatherId >= 600 && weatherId < 700;
+  const isRain = weatherId >= 200 && weatherId < 600;
+  const isClear = weatherId === 800;
+  const isCloudy = weatherId > 800;
+  const isWindy = windSpeed > 5;
+  
+  let suggestedActivities = [];
+  
+  // Add activities based on multiple conditions
+  if (isSnow) {
+    suggestedActivities = [...activities.snow];
+  } else if (isRain) {
+    suggestedActivities = [...activities.rain];
+  } else if (isClear && temp > 20) {
+    suggestedActivities = [...activities.clear];
+    if (isWindy) {
+      suggestedActivities.push(...activities.windy);
+    }
+  } else if (isCloudy) {
+    suggestedActivities = [...activities.clouds];
+    if (temp > 15) {
+      suggestedActivities.push(activities.clear[0]); // Add cycling
+    }
+  } else if (isWindy) {
+    suggestedActivities = [...activities.windy];
+  }
+  
+  return suggestedActivities;
 };
 
 const ActivityCard = ({ activity, index }) => {
@@ -95,12 +119,12 @@ const ActivitySuggestions = ({ weatherData, isDark }) => {
       animate={{ opacity: 1, x: 0 }}
       className={`fixed left-4 top-1/2 -translate-y-1/2 w-72 bg-white ${
         isDark ? 'dark:bg-gray-800' : ''
-      } bg-opacity-90 p-6 rounded-lg shadow-lg space-y-4 max-h-[80vh] overflow-y-auto hidden lg:block`}
+      } bg-opacity-90 p-6 rounded-lg shadow-lg space-y-4 max-h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block`}
     >
-      <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6">
+      <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6 sticky top-0 bg-white dark:bg-gray-800 py-2">
         Suggested Activities
       </h2>
-      <div className="space-y-3">
+      <div className="space-y-3 overflow-y-auto">
         {suggestedActivities.map((activity, index) => (
           <ActivityCard key={index} activity={activity} index={index} />
         ))}
@@ -115,7 +139,7 @@ const ActivitySuggestions = ({ weatherData, isDark }) => {
       <h2 className="text-xl font-bold text-white mb-4">
         Suggested Activities
       </h2>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto pb-4">
         <div className="flex space-x-4 pb-4">
           {suggestedActivities.map((activity, index) => (
             <div key={index} className="min-w-[200px]">
