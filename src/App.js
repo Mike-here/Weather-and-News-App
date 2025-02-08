@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import WeatherCard from './components/WeatherCard';
@@ -23,6 +23,7 @@ function WeatherApp() {
   const [isDark, setIsDark] = React.useState(() => {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // Get user's location on mount
   useEffect(() => {
@@ -76,11 +77,34 @@ function WeatherApp() {
     setCity(searchCity);
   };
 
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 transition-colors duration-300 ${
       isDark ? 'dark bg-gray-900' : 'bg-gradient-to-br from-weather-primary to-weather-secondary'
     }`}>
       <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+      
+      {!isOnline && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed top-16 left-4 right-4 mx-auto max-w-sm bg-yellow-500 text-white px-4 py-2 rounded-md text-center"
+        >
+          You are offline. Some features may be limited.
+        </motion.div>
+      )}
       
       <motion.h1 
         initial={{ opacity: 0, y: -20 }}
