@@ -10,6 +10,7 @@ import { fetchWeatherData, fetchForecastData, fetchWeatherByCoords } from './uti
 import HourlyForecast from './components/HourlyForecast';
 import DailyForecast from './components/DailyForecast';
 import WeatherDetails from './components/WeatherDetails';
+import ActivitySuggestions from './components/ActivitySuggestions';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -97,6 +98,7 @@ function WeatherApp() {
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 transition-colors duration-300 ${
       isDark ? 'dark bg-gray-900' : 'bg-gradient-to-br from-weather-primary to-weather-secondary'
     }`}>
+      <ActivitySuggestions weatherData={weatherData} isDark={isDark} />
       <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
       
       {!isOnline && (
