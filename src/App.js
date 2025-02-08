@@ -7,6 +7,9 @@ import ForecastChart from './components/ForecastChart';
 import LoadingSpinner from './components/LoadingSpinner';
 import ThemeToggle from './components/ThemeToggle';
 import { fetchWeatherData, fetchForecastData, fetchWeatherByCoords } from './utils/api';
+import HourlyForecast from './components/HourlyForecast';
+import DailyForecast from './components/DailyForecast';
+import WeatherDetails from './components/WeatherDetails';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -133,7 +136,9 @@ function WeatherApp() {
       )}
       
       <WeatherCard weatherData={weatherData} isDark={isDark} />
-      <ForecastChart forecastData={forecastData} isDark={isDark} />
+      <WeatherDetails weatherData={weatherData} isDark={isDark} />
+      <HourlyForecast forecastData={forecastData} isDark={isDark} />
+      <DailyForecast forecastData={forecastData} isDark={isDark} />
     </div>
   );
 }

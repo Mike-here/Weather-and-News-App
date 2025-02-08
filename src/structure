@@ -5,7 +5,10 @@ src/
   │   ├── VoiceSearch.js
   │   ├── LoadingSpinner.js
   │   ├── ThemeToggle.js
-  │   └── ForecastChart.js
+  │   ├── ForecastChart.js
+  │   ├── HourlyForecast.js
+  │   ├── DailyForecast.js
+  │   └── WeatherDetails.js
   ├── utils/
   │   └── api.js
   ├── App.js
