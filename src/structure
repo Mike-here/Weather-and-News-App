@@ -1,0 +1,9 @@
+src/
+  ├── components/
+  │   ├── WeatherCard.js
+  │   └── SearchBar.js
+  ├── utils/
+  │   └── api.js
+  ├── App.js
+  ├── index.js
+  └── index.css 
