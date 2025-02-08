@@ -1,7 +1,11 @@
 src/
   ├── components/
   │   ├── WeatherCard.js
-  │   └── SearchBar.js
+  │   ├── SearchBar.js
+  │   ├── VoiceSearch.js
+  │   ├── LoadingSpinner.js
+  │   ├── ThemeToggle.js
+  │   └── ForecastChart.js
   ├── utils/
   │   └── api.js
   ├── App.js
