@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import { motion } from 'framer-motion';
 import WeatherCard from './components/WeatherCard';
 import SearchBar from './components/SearchBar';
-import ForecastChart from './components/ForecastChart';
 import LoadingSpinner from './components/LoadingSpinner';
 import ThemeToggle from './components/ThemeToggle';
 import { fetchWeatherData, fetchForecastData, fetchWeatherByCoords } from './utils/api';
