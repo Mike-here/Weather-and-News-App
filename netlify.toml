@@ -11,4 +11,5 @@
   NODE_VERSION = "18"
   REACT_APP_API_KEY = "2ec3658520171cd1960bc9e518549a6c"
   REACT_APP_API_URL = "https://api.openweathermap.org/data/2.5"
-  CI = false 
+  CI = "1"
+  GENERATE_SOURCEMAP = "0" 
