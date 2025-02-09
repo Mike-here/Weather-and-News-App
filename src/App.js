@@ -5,6 +5,7 @@ import WeatherCard from './components/WeatherCard';
 import SearchBar from './components/SearchBar';
 import LoadingSpinner from './components/LoadingSpinner';
 import ThemeToggle from './components/ThemeToggle';
+import WeatherNews from './components/WeatherNews';
 import { fetchWeatherData, fetchForecastData, fetchWeatherByCoords } from './utils/api';
 import HourlyForecast from './components/HourlyForecast';
 import DailyForecast from './components/DailyForecast';
@@ -99,8 +100,10 @@ function WeatherApp() {
       isDark ? 'dark bg-gray-900' : 'bg-gradient-to-br from-weather-primary to-weather-secondary'
     }`}>
       <div className="w-full flex-grow flex flex-col items-center">
-        <ActivitySuggestions weatherData={weatherData} isDark={isDark} />
-        <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+        <div className="w-full flex justify-end items-center space-x-4 mb-8">
+          <WeatherNews isDark={isDark} />
+          <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+        </div>
         
         {!isOnline && (
           <motion.div
