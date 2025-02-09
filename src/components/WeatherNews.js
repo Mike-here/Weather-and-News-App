@@ -5,16 +5,22 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const fetchWeatherNews = async () => {
-  const response = await axios.get(`https://newsapi.org/v2/everything`, {
-    params: {
-      q: 'weather OR climate OR forecast',
-      apiKey: 'cc71fe24163645938e005e49a6849600',
-      language: 'en',
-      pageSize: 5,
-      sortBy: 'publishedAt'
-    }
-  });
-  return response.data.articles;
+  try {
+    const response = await axios.get(`https://newsapi.org/v2/everything`, {
+      params: {
+        q: 'weather OR climate OR forecast',
+        apiKey: process.env.REACT_APP_NEWS_API_KEY,
+        language: 'en',
+        pageSize: 5,
+        sortBy: 'publishedAt'
+      }
+    });
+    console.log('News API Response:', response.data); // For debugging
+    return response.data.articles;
+  } catch (error) {
+    console.error('News API Error:', error.response || error);
+    throw error;
+  }
 };
 
 const WeatherNews = ({ isDark }) => {

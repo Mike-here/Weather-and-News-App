@@ -100,11 +100,11 @@ function WeatherApp() {
       isDark ? 'dark bg-gray-900' : 'bg-gradient-to-br from-weather-primary to-weather-secondary'
     }`}>
       <div className="w-full flex-grow flex flex-col items-center">
-        <ActivitySuggestions weatherData={weatherData} isDark={isDark} />
-        <div className="w-full flex justify-end items-center space-x-4 mb-8">
+        <div className="w-full flex justify-between items-center mb-8">
           <WeatherNews isDark={isDark} />
           <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
         </div>
+        <ActivitySuggestions weatherData={weatherData} isDark={isDark} />
         
         {!isOnline && (
           <motion.div
