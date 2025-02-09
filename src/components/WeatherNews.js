@@ -6,20 +6,24 @@ import axios from 'axios';
 
 const fetchWeatherNews = async () => {
   try {
-    const response = await axios.get(`https://newsapi.org/v2/everything`, {
+    const response = await axios.get(`https://newsapi.org/v2/top-headlines`, {
       params: {
-        q: 'weather OR climate OR forecast',
+        category: 'science',
+        q: 'weather',
         apiKey: process.env.REACT_APP_NEWS_API_KEY,
         language: 'en',
         pageSize: 5,
         sortBy: 'publishedAt'
+      },
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_NEWS_API_KEY}`
       }
     });
     console.log('News API Response:', response.data); // For debugging
     return response.data.articles;
   } catch (error) {
     console.error('News API Error:', error.response || error);
-    throw error;
+    return [];
   }
 };
 
@@ -30,10 +34,15 @@ const WeatherNews = ({ isDark }) => {
     queryKey: ['weatherNews'],
     queryFn: fetchWeatherNews,
     refetchInterval: 300000, // Refetch every 5 minutes
+    staleTime: 300000,
+    cacheTime: 3600000,
     onError: (error) => {
       console.error('News fetch error:', error);
     }
   });
+
+  console.log('News data:', news);
+  console.log('Is loading:', isLoading);
 
   return (
     <div className="relative">
@@ -54,7 +63,7 @@ const WeatherNews = ({ isDark }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`absolute right-0 mt-2 w-96 rounded-lg shadow-lg ${
+            className={`absolute left-0 mt-2 w-96 rounded-lg shadow-lg ${
               isDark ? 'bg-gray-800' : 'bg-white'
             }`}
           >
