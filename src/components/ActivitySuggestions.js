@@ -117,9 +117,9 @@ const ActivitySuggestions = ({ weatherData, isDark }) => {
     <motion.div
       initial={{ opacity: 0, x: -30 }}
       animate={{ opacity: 1, x: 0 }}
-      className={`fixed left-4 top-1/2 -translate-y-1/2 w-72 bg-white no-scrollbar ${
+      className={`fixed left-4 top-1/2 -translate-y-1/2 w-72 bg-white ${
         isDark ? 'dark:bg-gray-800' : ''
-      } bg-opacity-90 p-6 rounded-lg shadow-lg space-y-4 max-h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block`}
+      } bg-opacity-90 p-6 rounded-lg shadow-lg space-y-4 max-h-[calc(100vh-8rem)] overflow-y-auto hidden lg:block no-scrollbar`}
     >
       <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6 sticky top-0 bg-white dark:bg-gray-800 py-2">
         Suggested Activities
@@ -139,7 +139,7 @@ const ActivitySuggestions = ({ weatherData, isDark }) => {
       <h2 className="text-xl font-bold text-white mb-4">
         Suggested Activities
       </h2>
-      <div className="overflow-x-auto pb-4 no-scrollbar">
+      <div className="horizontal-scroll pb-4">
         <div className="flex space-x-4 pb-4">
           {suggestedActivities.map((activity, index) => (
             <div key={index} className="min-w-[200px]">

@@ -11,7 +11,7 @@ const Footer = ({ isDark }) => {
       }`}
     >
       <p className="text-sm">
-        © 2025 Michael [Your Last Name]. All rights reserved.
+        © 2025 Michael Acheampong. All rights reserved.
       </p>
     </motion.footer>
   );
