@@ -9,6 +9,6 @@
 
 [build.environment]
   NODE_VERSION = "16"
-  REACT_APP_API_KEY = "2ec3658520171cd1960bc9e518549a6c"
-  REACT_APP_API_URL = "https://api.openweathermap.org/data/2.5"
+  REACT_APP_API_KEY = "${REACT_APP_API_KEY}"
+  REACT_APP_API_URL = "${REACT_APP_API_URL}"
   CI = "false" 
