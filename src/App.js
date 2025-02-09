@@ -10,7 +10,6 @@ import { fetchWeatherData, fetchForecastData, fetchWeatherByCoords } from './uti
 import HourlyForecast from './components/HourlyForecast';
 import DailyForecast from './components/DailyForecast';
 import WeatherDetails from './components/WeatherDetails';
-import ActivitySuggestions from './components/ActivitySuggestions';
 import Footer from './components/Footer';
 
 const queryClient = new QueryClient({

@@ -1,5 +1,5 @@
 [build]
-  command = "npm cache clean --force && rm -rf node_modules && npm install && npm run build"
+  command = "CI=false npm cache clean --force && rm -rf node_modules && npm install && npm run build"
   publish = "build"
 
 [[redirects]]
@@ -17,5 +17,5 @@
   REACT_APP_WEATHER_API_KEY = "2ec3658520171cd1960bc9e518549a6c"
   REACT_APP_API_URL = "https://api.openweathermap.org/data/2.5"
   REACT_APP_NEWS_API_KEY = "cc71fe24163645938e005e49a6849600"
-  CI = "1"
+  CI = "false"
   GENERATE_SOURCEMAP = "0" 
