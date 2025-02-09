@@ -4,4 +4,16 @@
 
 body {
   @apply bg-gradient-to-br from-weather-primary to-weather-secondary min-h-screen;
+}
+
+/* Hide scrollbars while maintaining scroll functionality */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 } 

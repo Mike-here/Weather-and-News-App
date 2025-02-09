@@ -10,6 +10,7 @@ import HourlyForecast from './components/HourlyForecast';
 import DailyForecast from './components/DailyForecast';
 import WeatherDetails from './components/WeatherDetails';
 import ActivitySuggestions from './components/ActivitySuggestions';
+import Footer from './components/Footer';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -94,52 +95,55 @@ function WeatherApp() {
   }, []);
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center p-4 transition-colors duration-300 ${
+    <div className={`min-h-screen flex flex-col items-center justify-between p-4 transition-colors duration-300 ${
       isDark ? 'dark bg-gray-900' : 'bg-gradient-to-br from-weather-primary to-weather-secondary'
     }`}>
-      <ActivitySuggestions weatherData={weatherData} isDark={isDark} />
-      <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
-      
-      {!isOnline && (
-        <motion.div
+      <div className="w-full flex-grow flex flex-col items-center">
+        <ActivitySuggestions weatherData={weatherData} isDark={isDark} />
+        <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+        
+        {!isOnline && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="fixed top-16 left-4 right-4 mx-auto max-w-sm bg-yellow-500 text-white px-4 py-2 rounded-md text-center"
+          >
+            You are offline. Some features may be limited.
+          </motion.div>
+        )}
+        
+        <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed top-16 left-4 right-4 mx-auto max-w-sm bg-yellow-500 text-white px-4 py-2 rounded-md text-center"
+          className="text-4xl font-bold text-white mb-8"
         >
-          You are offline. Some features may be limited.
-        </motion.div>
-      )}
-      
-      <motion.h1 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-bold text-white mb-8"
-      >
-        Weather App
-      </motion.h1>
-      
-      <SearchBar onSearch={handleSearch} isLoading={isLoading} />
-      
-      {isLoading && (
-        <div className="my-8">
-          <LoadingSpinner />
-        </div>
-      )}
-      
-      {error && (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-red-500 bg-white dark:bg-gray-800 px-4 py-2 rounded mb-4"
-        >
-          City not found. Please try again.
-        </motion.div>
-      )}
-      
-      <WeatherCard weatherData={weatherData} isDark={isDark} />
-      <WeatherDetails weatherData={weatherData} isDark={isDark} />
-      <HourlyForecast forecastData={forecastData} isDark={isDark} />
-      <DailyForecast forecastData={forecastData} isDark={isDark} />
+          Weather App
+        </motion.h1>
+        
+        <SearchBar onSearch={handleSearch} isLoading={isLoading} />
+        
+        {isLoading && (
+          <div className="my-8">
+            <LoadingSpinner />
+          </div>
+        )}
+        
+        {error && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-red-500 bg-white dark:bg-gray-800 px-4 py-2 rounded mb-4"
+          >
+            City not found. Please try again.
+          </motion.div>
+        )}
+        
+        <WeatherCard weatherData={weatherData} isDark={isDark} />
+        <WeatherDetails weatherData={weatherData} isDark={isDark} />
+        <HourlyForecast forecastData={forecastData} isDark={isDark} />
+        <DailyForecast forecastData={forecastData} isDark={isDark} />
+      </div>
+      <Footer isDark={isDark} />
     </div>
   );
 }
